@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="admin-profile.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-circle">
+          <span class="logo-icon">◉</span>
+        </div>
+        <div>
+          <div class="sidebar-title">ETMS</div>
+          <div class="sidebar-subtitle">Admin Dashboard</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="admin-dashboard.html"><span class="nav-icon">▣</span> Dashboard</a></li>
+          <li><a href="admin-task.html"><span class="nav-icon">●</span> Tasks</a></li>
+          <li class="active"><a href="admin-profile.html"><span class="nav-icon">👤</span> Profile</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-logout" id="logoutBtn">
+        <span class="logout-icon">⎋</span> Logout
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Profile</h1>
+        <div class="profile-circle profile-purple">JS</div>
+      </header>
+      <section class="profile-section">
+        <div class="profile-info">
+          <div class="profile-card">
+            <div class="profile-card-header">
+              <span>Personal Information</span>
+              <a href="#" id="editProfileBtn" class="btn btn-outline"><span class="edit-icon">✏️</span> Edit Profile</a>
+            </div>
+            <form class="profile-form">
+              <label>Full Name
+                <input type="text" placeholder="Enter your full name" disabled>
+              </label>
+              <label>Email Address
+                <input type="email" placeholder="Enter your email address" disabled>
+              </label>
+              <label>Department
+                <input type="text" placeholder="Department" disabled>
+              </label>
+              <div class="profile-form-row">
+                <label>Employee ID
+                  <input type="text" placeholder="Employee ID" disabled>
+                </label>
+                <label>Role
+                  <input type="text" placeholder="Role" disabled>
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="profile-card profile-summary">
+            <div class="profile-avatar">JS</div>
+            <div class="profile-name">John Smith</div>
+            <div class="profile-email">john.smith@company.com</div>
+            <div class="profile-role">Senior Developer • Engineering</div>
+            <div class="profile-status"><span class="status-dot"></span></div>
+          </div>
+        </div>
+        <div class="profile-card password-card">
+          <div class="password-header">Password Management</div>
+          <div class="password-desc">Change your password to keep your account secure.</div>
+          <a href="#" id="changePasswordBtn" class="btn btn-outline btn-password"><span class="lock-icon">🔒</span> Change Password</a>
+          <form class="password-form" style="display:none; margin-top: 16px;">
+            <input type="password" placeholder="Current Password" disabled style="margin-bottom: 8px; width: 100%; padding: 10px; border-radius: 6px; border: 1.5px solid #e5e7eb; font-size: 15px;">
+            <input type="password" placeholder="New Password" disabled style="margin-bottom: 8px; width: 100%; padding: 10px; border-radius: 6px; border: 1.5px solid #e5e7eb; font-size: 15px;">
+            <input type="password" placeholder="Confirm New Password" disabled style="width: 100%; padding: 10px; border-radius: 6px; border: 1.5px solid #e5e7eb; font-size: 15px;">
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+<script>
+  const editBtn = document.getElementById('editProfileBtn');
+  const form = document.querySelector('.profile-form');
+  let editing = false;
+
+  editBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const inputs = form.querySelectorAll('input');
+    const fullNameInput = form.querySelector('input[type="text"]'); // First input is Full Name
+    if (!editing) {
+      fullNameInput.disabled = false;
+      // All other inputs remain disabled
+      editBtn.innerHTML = '<span class="edit-icon">💾</span> Save';
+      editing = true;
+    } else {
+      fullNameInput.disabled = true;
+      editBtn.innerHTML = '<span class="edit-icon">✏️</span> Edit Profile';
+      editing = false;
+      // Optionally, handle saving data here
+    }
+  });
+
+  const changePasswordBtn = document.getElementById('changePasswordBtn');
+  const passwordForm = document.querySelector('.password-form');
+  let changingPassword = false;
+
+  changePasswordBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const inputs = passwordForm.querySelectorAll('input');
+    if (!changingPassword) {
+      passwordForm.style.display = 'block';
+      inputs.forEach(input => input.disabled = false);
+      changePasswordBtn.innerHTML = '<span class="lock-icon">💾</span> Save Password';
+      changingPassword = true;
+    } else {
+      passwordForm.style.display = 'none';
+      inputs.forEach(input => input.disabled = true);
+      changePasswordBtn.innerHTML = '<span class="lock-icon">🔒</span> Change Password';
+      changingPassword = false;
+      // Optionally, handle saving password here
+    }
+  });
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  logoutBtn.addEventListener('click', function() {
+    if (confirm('Are you sure you want to logout?')) {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

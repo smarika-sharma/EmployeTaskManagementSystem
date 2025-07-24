@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Task Status</title>
+  <link rel="stylesheet" href="employee-update-task.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="task-bg">
+    <form class="task-card">
+      <div style="text-align:left; margin-bottom: 8px;">
+        <a href="employee-dashboard.html" class="custom-link">← Back to Dashboard</a>
+      </div>
+      <h1 class="task-title">Update Task Status</h1>
+      <div class="task-form-grid">
+        <div class="form-group form-group-full">
+          <label>Status</label>
+          <select>
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </div>
+      </div>
+      <div class="task-actions-row">
+        <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">✓ Update Status</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('cancelBtn').addEventListener('click', function() {
+      window.location.href = 'employee-dashboard.html';
+    });
+  </script>
+</body>
+</html>
