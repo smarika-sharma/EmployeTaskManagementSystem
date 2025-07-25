@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user_id) {
                 // Success! Redirect or show a message
                 $_SESSION['success'] = "Account created successfully! Please log in.";
-                header("Location: employee-login.html");
+                header("Location: login-employee.php");
                 exit();
             } else {
                 $error = "Something went wrong. Please try again.";
@@ -107,8 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" class="btn btn-primary"><span class="btn-check">✔️</span> Create Employee Account</button>
       </form>
       <div class="account-links">
-        <a href="employee-login.html" class="forgot-link custom-link">Forgot your password?</a>
-        <div class="login-link">Already have an account? <a href="employee-login.html" class="custom-link">Login here</a></div>
+        <a href="login-employee.php" class="forgot-link custom-link">Forgot your password?</a>
+        <div class="login-link">Already have an account? <a href="login-employee.php" class="custom-link">Login here</a></div>
       </div>
     </div>
     <div class="account-footer">
