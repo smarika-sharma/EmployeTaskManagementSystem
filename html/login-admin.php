@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once '../database.php'; // Adjust path if needed
+
+$error = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if (empty($email) || empty($password)) {
+        $error = "Please enter both email and password.";
+    } else {
+        $db = new DatabaseConnection();
+        $result = $db->select("SELECT * FROM admin WHERE email = ?", [$email]);
+        if ($result && password_verify($password, $result[0]['password'])) {
+            // Login successful, redirect to dashboard
+            header("Location: admin-dashboard.html");
+            exit();
+        } else {
+            $error = "Incorrect credentials.";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,12 +46,15 @@
       </div>
       <h1 class="login-title">Admin Login</h1>
       <div class="login-subtitle">Access administrative dashboard and manage system settings</div>
-      <form class="login-form">
+      <?php if ($error): ?>
+        <p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
+      <?php endif; ?>
+      <form class="login-form" action="" method="POST">
         <label>Email or Username
-          <input type="text" placeholder="Enter your email or username" required>
+          <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
         </label>
         <label>Password
-          <input type="password" placeholder="Enter your password" required>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </label>
         <button type="submit" class="btn btn-primary" formaction="admin-dashboard.html">Login as Admin</button>
       </form>
