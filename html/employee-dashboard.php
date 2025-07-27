@@ -27,6 +27,9 @@ $completed_tasks = $db->select("SELECT COUNT(*) as count FROM task WHERE status 
 
 // Get recent tasks for this user
 $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY created_date DESC LIMIT 5", [$user_id]);
+
+// Get recent notifications for this user (tasks created in last 24 hours)
+$recent_notifications = $db->select("SELECT * FROM task WHERE user_id = ? AND created_date >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_date DESC LIMIT 3", [$user_id]);
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +80,7 @@ $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY creat
         <div class="dashboard-card">
           <div class="card-title">Total Tasks</div>
           <div class="card-value" id="total-tasks"><?php echo $total_tasks[0]['count']; ?></div>
-          <div class="card-status all">All assigned</div>
+          <div class="card-status all"> assigned</div>
           <div class="card-icon card-icon-blue">▶️</div>
         </div>
         <div class="dashboard-card">
@@ -116,6 +119,33 @@ $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY creat
                 <div class="task-item">
                   <div class="task-title"><?php echo htmlspecialchars($task['task_title']); ?></div>
                   <div class="task-due">Due: <?php echo date('M j, Y', strtotime($task['due_date'])); ?></div>
+                </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="notifications-section">
+          <div class="list-header">
+            <span>Notifications</span>
+            <span class="notification-count" id="notification-count">0</span>
+          </div>
+          <div class="notification-list" id="notification-list">
+            <?php if (empty($recent_notifications)): ?>
+              <div class="notification-item">
+                <div class="notification-icon">🔔</div>
+                <div class="notification-content">
+                  <div class="notification-title">No new notifications</div>
+                  <div class="notification-time">You're all caught up!</div>
+                </div>
+              </div>
+            <?php else: ?>
+              <?php foreach ($recent_notifications as $notification): ?>
+                <div class="notification-item">
+                  <div class="notification-icon">📋</div>
+                  <div class="notification-content">
+                    <div class="notification-title">New task assigned: <?php echo htmlspecialchars($notification['task_title']); ?></div>
+                    <div class="notification-time"><?php echo date('M j, Y g:i A', strtotime($notification['created_date'])); ?></div>
+                  </div>
                 </div>
               <?php endforeach; ?>
             <?php endif; ?>
@@ -163,6 +193,101 @@ $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY creat
   
   // Refresh dashboard every 30 seconds
   setInterval(refreshDashboard, 30000);
+  
+  // Check for new task notifications
+  function checkNewTasks() {
+    fetch('check-new-tasks.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.has_new_tasks) {
+        showNotification('New task assigned to you: ' + data.task_title);
+        addNotificationToList(data.task_title, data.created_date);
+      }
+    })
+    .catch(error => {
+      console.error('Error checking for new tasks:', error);
+    });
+  }
+  
+  // Add notification to the notification list
+  function addNotificationToList(taskTitle, createdDate) {
+    const notificationList = document.getElementById('notification-list');
+    const notificationCount = document.getElementById('notification-count');
+    
+    // Create new notification item
+    const notificationItem = document.createElement('div');
+    notificationItem.className = 'notification-item';
+    notificationItem.style.animation = 'slideIn 0.3s ease-out';
+    
+    const currentTime = new Date().toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    
+    notificationItem.innerHTML = `
+      <div class="notification-icon">📋</div>
+      <div class="notification-content">
+        <div class="notification-title">New task assigned: ${taskTitle}</div>
+        <div class="notification-time">${currentTime}</div>
+      </div>
+    `;
+    
+    // Remove "No new notifications" message if it exists
+    const noNotifications = notificationList.querySelector('.notification-item:first-child');
+    if (noNotifications && noNotifications.querySelector('.notification-title').textContent === 'No new notifications') {
+      noNotifications.remove();
+    }
+    
+    // Add new notification at the top
+    notificationList.insertBefore(notificationItem, notificationList.firstChild);
+    
+    // Update notification count
+    const currentCount = parseInt(notificationCount.textContent) || 0;
+    notificationCount.textContent = currentCount + 1;
+    
+    // Limit notifications to 5 items
+    const notifications = notificationList.querySelectorAll('.notification-item');
+    if (notifications.length > 5) {
+      notifications[notifications.length - 1].remove();
+    }
+  }
+  
+  // Show notification popup
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'message success';
+    notification.id = 'taskNotification';
+    notification.textContent = message;
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.zIndex = '1000';
+    notification.style.padding = '15px 20px';
+    notification.style.borderRadius = '8px';
+    notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    notification.style.animation = 'slideIn 0.3s ease-out';
+    notification.style.maxWidth = '300px';
+    notification.style.background = '#d4edda';
+    notification.style.color = '#155724';
+    notification.style.border = '1px solid #c3e6cb';
+    
+    document.body.appendChild(notification);
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease-out';
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 5000);
+  }
+  
+  // Check for new tasks every 10 seconds
+  setInterval(checkNewTasks, 10000);
   
 </script>
 </body>

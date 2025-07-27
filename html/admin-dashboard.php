@@ -62,7 +62,7 @@ $recent_tasks = $db->select("
       <header class="main-header">
         <h1>Dashboard</h1>
         <div class="header-actions">
-          <a href="new-task.html" class="btn btn-primary">+ Add Task</a>
+          <a href="new-task.php" class="btn btn-primary">+ Add Task</a>
           <a href="create-account.php" class="btn btn-outline">+ Add Employee</a>
           <div class="profile-circle">A</div>
         </div>
