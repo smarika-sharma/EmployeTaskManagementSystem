@@ -14,8 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $db = new DatabaseConnection();
         $result = $db->select("SELECT * FROM users WHERE email = ?", [$email]);
         if ($result && password_verify($password, $result[0]['password'])) {
-            // Login successful, redirect to dashboard
-            header("Location: employee-dashboard.html");
+            // Login successful, set session variables
+            $_SESSION['user_id'] = $result[0]['id']; // Store user's ID from users table
+            $_SESSION['user_name'] = $result[0]['full_name'] ?? 'User'; 
+            
+            // Redirect to dashboard
+            header("Location: employee-dashboard.php");
             exit();
         } else {
             $error = "Incorrect credentials.";

@@ -46,8 +46,17 @@ if (isset($_POST['edit_task'])) {
     }
 }
 
-// Fetch all tasks
-$tasks = $db->select("SELECT * FROM task ORDER BY created_date DESC");
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login-employee.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch all tasks for this user
+$tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY created_date DESC", [$user_id]);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +84,7 @@ $tasks = $db->select("SELECT * FROM task ORDER BY created_date DESC");
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="employee-dashboard.html" class="custom-link"><span class="nav-icon">▣</span> Dashboard</a></li>
+          <li><a href="employee-dashboard.php" class="custom-link"><span class="nav-icon">▣</span> Dashboard</a></li>
           <li class="active"><a href="employee-task.php" class="custom-link"><span class="nav-icon">●</span> My Tasks</a></li>
           <li><a href="employee-profile.html" class="custom-link"><span class="nav-icon">👤</span> Profile</a></li>
         </ul>

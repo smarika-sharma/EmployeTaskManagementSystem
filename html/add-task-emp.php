@@ -7,6 +7,12 @@ require_once '../database.php';
 
 session_start();
 
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login-employee.php");
+    exit();
+}
+
 $db = new DatabaseConnection();
 
 // Handle task creation
@@ -20,8 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($task_title) || empty($due_date)) {
         $error_message = "Task title and due date are required.";
     } else {
-        $result = $db->create("INSERT INTO task (task_title, task_detail, due_date, status, priority) VALUES (?, ?, ?, ?, ?)", 
-                             [$task_title, $task_detail, $due_date, $status, $priority]);
+        $user_id = $_SESSION['user_id']; // Get logged-in user's ID from session
+        
+        // Get the next available ID
+        $max_id_result = $db->select("SELECT MAX(id) as max_id FROM task");
+        $next_id = ($max_id_result[0]['max_id'] ?? 0) + 1;
+        
+        $result = $db->create("INSERT INTO task (id, task_title, task_detail, due_date, status, priority, user_id, created_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())", 
+                             [$next_id, $task_title, $task_detail, $due_date, $status, $priority, $user_id]);
         
         if ($result > 0) {
             // Store success message in session and redirect
@@ -34,11 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// If there's an error, redirect back to the form
-if (isset($error_message)) {
-    header("Location: add-task-emp.php?error=" . urlencode($error_message));
-    exit();
-}
+// Error message will be displayed in the form below
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,34 +66,41 @@ if (isset($error_message)) {
         <a href="employee-task.php" class="custom-link">← Back to My Tasks</a>
       </div>
       <h1 class="task-title">Add New Task</h1>
+      
+      <?php if (isset($error_message)): ?>
+        <div style="background: #f8d7da; color: #721c24; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+          <?php echo htmlspecialchars($error_message); ?>
+        </div>
+      <?php endif; ?>
+      
       <div class="task-form-grid">
         <div class="form-group">
           <label>Task Title *</label>
-          <input type="text" name="task_title" placeholder="Enter task title" required>
+          <input type="text" name="task_title" placeholder="Enter task title" value="<?php echo isset($_POST['task_title']) ? htmlspecialchars($_POST['task_title']) : ''; ?>" required>
         </div>
         <div class="form-group">
           <label>Status</label>
           <select name="status">
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
+            <option value="Pending" <?php echo (isset($_POST['status']) && $_POST['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+            <option value="In Progress" <?php echo (isset($_POST['status']) && $_POST['status'] == 'In Progress') ? 'selected' : ''; ?>>In Progress</option>
+            <option value="Completed" <?php echo (isset($_POST['status']) && $_POST['status'] == 'Completed') ? 'selected' : ''; ?>>Completed</option>
           </select>
         </div>
         <div class="form-group form-group-full">
           <label>Description</label>
-          <textarea name="task_detail" placeholder="Enter task description"></textarea>
+          <textarea name="task_detail" placeholder="Enter task description"><?php echo isset($_POST['task_detail']) ? htmlspecialchars($_POST['task_detail']) : ''; ?></textarea>
         </div>
         <div class="form-group">
           <label>Priority</label>
           <select name="priority">
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-            <option value="Low">Low</option>
+            <option value="Medium" <?php echo (isset($_POST['priority']) && $_POST['priority'] == 'Medium') ? 'selected' : ''; ?>>Medium</option>
+            <option value="High" <?php echo (isset($_POST['priority']) && $_POST['priority'] == 'High') ? 'selected' : ''; ?>>High</option>
+            <option value="Low" <?php echo (isset($_POST['priority']) && $_POST['priority'] == 'Low') ? 'selected' : ''; ?>>Low</option>
           </select>
         </div>
         <div class="form-group">
           <label>Deadline *</label>
-          <input type="date" name="due_date" required>
+          <input type="date" name="due_date" value="<?php echo isset($_POST['due_date']) ? htmlspecialchars($_POST['due_date']) : ''; ?>" required>
         </div>
       </div>
       <div class="task-actions-row">
