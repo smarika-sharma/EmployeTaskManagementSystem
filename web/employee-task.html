@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tasks</title>
+  <link rel="stylesheet" href="employee-task.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-circle">
+          <span class="logo-icon">◉</span>
+        </div>
+        <div>
+          <div class="sidebar-title">ETMS</div>
+          <div class="sidebar-subtitle">Employee Dashboard</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="employee-dashboard.html" class="custom-link"><span class="nav-icon">▣</span> Dashboard</a></li>
+          <li class="active"><a href="employee-task.html" class="custom-link"><span class="nav-icon">●</span> My Tasks</a></li>
+          <li><a href="employee-profile.html" class="custom-link"><span class="nav-icon">👤</span> Profile</a></li>
+          <li><a href="#" onclick="openSupportModalIframe(); return false;" class="custom-link"><span class="nav-icon">❓</span> Help & Support</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-logout" id="logoutBtn">
+        <span class="logout-icon">⎋</span> Logout
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>My Tasks</h1>
+        <div class="profile-circle profile-purple">J</div>
+      </header>
+      <section class="task-table-section">
+        <table class="task-table">
+          <thead>
+            <tr>
+              <th>Task Details</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="task-title-main">Prepare quarterly report</div>
+                <div class="task-title-desc">Compile Q4 financial and performance data</div>
+                <div class="task-date">Jan 20, 2024 <span class="overdue">Overdue</span></div>
+              </td>
+              <td>Jan 20, 2024<br><span class="overdue">Overdue</span></td>
+              <td><span class="pill pending">Pending </span></td>
+              <td><span class="pill medium">Medium</span></td>
+              <td>
+                <span class="action-icon">✏️</span>
+                <span class="action-icon">🗑️</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="task-title-main">Database optimization</div>
+                <div class="task-title-desc">Optimize database queries for better performance</div>
+                <div class="task-date">Jan 25, 2024</div>
+              </td>
+              <td>Jan 25, 2024</td>
+              <td><span class="pill pending">Pending </span></td>
+              <td><span class="pill low">Low</span></td>
+              <td>
+                <span class="action-icon">✏️</span>
+                <span class="action-icon">🗑️</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="support-opener.js"></script>
+  <script>
+    // Make nav li clickable
+    document.querySelectorAll('.sidebar-nav ul li').forEach(function(li) {
+      const link = li.querySelector('a');
+      if (link) {
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', function(e) {
+          // Prevent double navigation if clicking the link directly
+          if (e.target.tagName.toLowerCase() !== 'a') {
+            window.location.href = link.getAttribute('href');
+          }
+        });
+      }
+    });
+    // Logout functionality
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', function() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

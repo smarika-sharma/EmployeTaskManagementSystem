@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Task</title>
+  <link rel="stylesheet" href="admin-update-task.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="task-bg">
+    <form class="task-card">
+      <div style="text-align:left; margin-bottom: 8px;">
+        <a href="admin-dashboard.html" class="custom-link">← Back to Dashboard</a>
+      </div>
+      <h1 class="task-title">Update Task</h1>
+      <div class="task-form-grid">
+        <div class="form-group">
+          <label>Task Title *</label>
+          <input type="text" placeholder="Enter task title" required>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select>
+            <option>Pending</option>
+            <option selected>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </div>
+        <div class="form-group form-group-full">
+          <label>Description</label>
+          <textarea placeholder="Enter task description"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select>
+            <option>Medium</option>
+            <option selected>High</option>
+            <option>Low</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assigned To *</label>
+          <select required>
+            <option>John Smith</option>
+            <option>Sarah Johnson</option>
+            <option>Mike Davis</option>
+          </select>
+        </div>
+        <div class="form-group form-group-full">
+          <label>Deadline *</label>
+          <input type="date" required>
+        </div>
+      </div>
+      <div class="task-actions-row">
+        <button type="button" class="btn btn-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">✓ Update Task</button>
+      </div>
+      <div class="task-required-note">* Required fields</div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support & Help Center</title>
+  <link rel="stylesheet" href="support-modal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="supportModal">
+    <div class="modal-container">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Support & Help Center</h2>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="modal-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-content">
+            <h1 class="hero-title">How can we help you?</h1>
+            <p class="hero-subtitle">Find answers to common questions or get in touch with our support team</p>
+          </div>
+        </section>
+
+        <!-- FAQs Section -->
+        <section class="faqs-section">
+          <div class="section-header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Quick answers to the most common questions</p>
+          </div>
+          
+          <div class="faqs-container">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I create a new task?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>To create a new task, navigate to the Tasks section and click the "Add New Task" button. Fill in the required fields including title, description, due date, and assignee. Click "Save" to create the task.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>I forgot my password. How can I reset it?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>If you've forgotten your password, click on the "Forgot Password" link on the login page. Enter your email address and follow the instructions sent to your email to reset your password. Make sure to check your spam folder if you don't receive the email immediately.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>I can't log into my account. What should I do?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>First, make sure you're using the correct email address and password. If you're still having trouble, try resetting your password using the "Forgot Password" link. If the issue persists, contact our support team with your email address and we'll help you regain access to your account.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I change my password?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>To change your password, go to your Profile page and click on "Change Password" in the Password Management section. Enter your current password, then your new password twice to confirm. Make sure your new password meets the security requirements (at least 8 characters with uppercase, lowercase, and numbers).</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Can I assign tasks to multiple team members?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>Yes, you can assign tasks to multiple team members. When creating or editing a task, you can select multiple users from the assignee dropdown. Each assigned member will receive notifications about the task.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I set task priorities?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>Task priorities can be set when creating or editing a task. Choose from Low, Medium, High, or Urgent priority levels. Priority affects how tasks are displayed and sorted in your task list.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I update my profile information?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>Go to your Profile page and click the "Edit Profile" button. You can then modify your personal information. Note that some fields like Employee ID and Role may be restricted and can only be changed by an administrator.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>I'm not receiving email notifications. How can I fix this?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>Check your email settings in your Profile page. Make sure your email address is correct and that you haven't accidentally unsubscribed from notifications. Also check your spam folder. If the issue continues, contact support to verify your email preferences.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I mark a task as completed?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>To mark a task as completed, go to your task list and click on the task. Look for the status dropdown and change it from "In Progress" or "Pending" to "Completed". You can also add comments or notes before marking it complete.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Is there a mobile app available?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>Yes, our mobile app is available for both iOS and Android devices. You can download it from the App Store or Google Play Store. The mobile app provides full functionality for task management on the go.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I export my task data?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>To export your task data, go to the Reports section and select "Export Data". You can choose to export in CSV, Excel, or PDF format. Select the date range and data types you want to include in the export.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>What should I do if I'm locked out of my account?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>If you're locked out due to too many failed login attempts, wait 15 minutes and try again. If you're still locked out, use the "Forgot Password" feature to reset your password. For persistent issues, contact our support team immediately.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I report a bug or technical issue?</h3>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>If you encounter a bug or technical issue, please contact our support team via email or phone. Include details about what you were doing when the issue occurred, your browser/device information, and any error messages you received.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact & Support Section -->
+        <section class="contact-section">
+          <div class="section-header">
+            <h2 class="section-title">Contact & Support</h2>
+            <p class="section-subtitle">Get in touch with our support team</p>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Email Support -->
+            <div class="contact-card">
+              <div class="contact-icon">📧</div>
+              <h3>Email Support</h3>
+              <p>Get help via email</p>
+              <a href="mailto:support@etms.com" class="contact-link">support@etms.com</a>
+              <p class="response-time">Response time: Within 24 hours</p>
+            </div>
+
+            <!-- Phone Support -->
+            <div class="contact-card">
+              <div class="contact-icon">📞</div>
+              <h3>Phone Support</h3>
+              <p>Speak with our team</p>
+              <a href="tel:+1-800-ETMS-HELP" class="contact-link">+1 (800) ETMS-HELP</a>
+              <p class="response-time">Available: Mon-Fri 9AM-6PM EST</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleFAQ(element) {
+      const faqItem = element.parentElement;
+      const answer = faqItem.querySelector('.faq-answer');
+      const icon = element.querySelector('.faq-icon');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem) {
+          item.classList.remove('active');
+          item.querySelector('.faq-icon').textContent = '+';
+        }
+      });
+      
+      // Toggle current FAQ
+      faqItem.classList.toggle('active');
+      icon.textContent = faqItem.classList.contains('active') ? '−' : '+';
+    }
+
+    function closeModal() {
+      // Close the modal and return to the previous page
+      window.close();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('supportModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html> 

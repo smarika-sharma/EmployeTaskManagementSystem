@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Dashboard</title>
+  <link rel="stylesheet" href="employee-dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-circle">
+          <span class="logo-icon">◉</span>
+        </div>
+        <div>
+          <div class="sidebar-title">ETMS</div>
+          <div class="sidebar-subtitle">Employee Dashboard</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active"><a href="employee-dashboard.html" class="custom-link"><span class="nav-icon">▣</span> Dashboard</a></li>
+          <li><a href="employee-task.html" class="custom-link"><span class="nav-icon">●</span> My Tasks</a></li>
+          <li><a href="employee-profile.html" class="custom-link"><span class="nav-icon">👤</span> Profile</a></li>
+          <li><a href="#" onclick="openSupportModalIframe(); return false;" class="custom-link"><span class="nav-icon">❓</span> Help & Support</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-logout" id="logoutBtn">
+        <span class="logout-icon">⎋</span> Logout
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Dashboard</h1>
+        <div class="profile-circle profile-purple">JS</div>
+      </header>
+      <section class="welcome-card">
+        <h2>Welcome back, John!</h2>
+        <p>Here\'s an overview of your tasks and progress.</p>
+      </section>
+      <section class="dashboard-cards">
+        <div class="dashboard-card">
+          <div class="card-title">Total Tasks</div>
+          <div class="card-value">5</div>
+          <div class="card-status all">All assigned</div>
+          <div class="card-icon card-icon-blue">▶️</div>
+        </div>
+        <div class="dashboard-card">
+          <div class="card-title">Pending Tasks</div>
+          <div class="card-value">2</div>
+          <div class="card-status pending">Awaiting Action</div>
+          <div class="card-icon card-icon-orange">⏰</div>
+        </div>
+        <div class="dashboard-card">
+          <div class="card-title">In Progress</div>
+          <div class="card-value">2</div>
+          <div class="card-status inprogress">Active Work</div>
+          <div class="card-icon card-icon-blue">▶️</div>
+        </div>
+        <div class="dashboard-card">
+          <div class="card-title">Completed</div>
+          <div class="card-value">1</div>
+          <div class="card-status completed">Finished</div>
+          <div class="card-icon card-icon-green">✔️</div>
+        </div>
+      </section>
+      <section class="dashboard-lists">
+        <div class="recent-tasks">
+          <div class="list-header">
+            <span>Recent Tasks</span>
+            <a href="employee-task.html" class="view-all custom-link">View All</a>
+          </div>
+          <div class="task-list">
+            <div class="task-item">
+              <div class="task-title">Update website homepage</div>
+              <div class="task-due">Due:</div>
+            </div>
+            <div class="task-item">
+              <div class="task-title">Prepare quarterly report</div>
+              <div class="task-due">Due:</div>
+            </div>
+            <div class="task-item">
+              <div class="task-title">Database optimization</div>
+              <div class="task-due">Due:</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="support-opener.js"></script>
+  <script>
+    // Make nav li clickable
+    document.querySelectorAll('.sidebar-nav ul li').forEach(function(li) {
+      const link = li.querySelector('a');
+      if (link) {
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', function(e) {
+          // Prevent double navigation if clicking the link directly
+          if (e.target.tagName.toLowerCase() !== 'a') {
+            window.location.href = link.getAttribute('href');
+          }
+        });
+      }
+    });
+    // Logout functionality
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', function() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>
