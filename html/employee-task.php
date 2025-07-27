@@ -167,19 +167,19 @@ $tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY created_date
               </form>
             </div>
           <?php endforeach; ?>
-          
+            
           <!-- Single Task Table -->
-          <table class="task-table">
-            <thead>
-              <tr>
-                <th>Task Details</th>
-                <th>Due Date</th>
-                <th>Status</th>
-                <th>Priority</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+            <table class="task-table">
+              <thead>
+                <tr>
+                  <th>Task Details</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
               <?php foreach ($tasks as $task): ?>
                 <tr>
                   <td>
@@ -199,14 +199,14 @@ $tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY created_date
                   </td>
                   <td><span class="pill <?php echo strtolower(str_replace(' ', '-', $task['status'])); ?>"><?php echo htmlspecialchars($task['status']); ?></span></td>
                   <td><span class="pill <?php echo strtolower($task['priority']); ?>"><?php echo htmlspecialchars($task['priority']); ?></span></td>
-                                      <td>
+                  <td>
                       <span class="action-icon" onclick="editTask(<?php echo $task['id']; ?>)">✏️</span>
                       <span class="action-icon" onclick="deleteTask(<?php echo $task['id']; ?>)">🗑️</span>
-                    </td>
+                  </td>
                 </tr>
               <?php endforeach; ?>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
         <?php endif; ?>
       </section>
     </main>

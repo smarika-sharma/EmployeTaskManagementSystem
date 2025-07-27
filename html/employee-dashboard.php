@@ -76,25 +76,25 @@ $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY creat
       <section class="dashboard-cards">
         <div class="dashboard-card">
           <div class="card-title">Total Tasks</div>
-          <div class="card-value"><?php echo $total_tasks[0]['count']; ?></div>
+          <div class="card-value" id="total-tasks"><?php echo $total_tasks[0]['count']; ?></div>
           <div class="card-status all">All assigned</div>
           <div class="card-icon card-icon-blue">▶️</div>
         </div>
         <div class="dashboard-card">
           <div class="card-title">Pending Tasks</div>
-          <div class="card-value"><?php echo $pending_tasks[0]['count']; ?></div>
+          <div class="card-value" id="pending-tasks"><?php echo $pending_tasks[0]['count']; ?></div>
           <div class="card-status pending">Awaiting Action</div>
           <div class="card-icon card-icon-orange">⏰</div>
         </div>
         <div class="dashboard-card">
           <div class="card-title">In Progress</div>
-          <div class="card-value"><?php echo $in_progress_tasks[0]['count']; ?></div>
+          <div class="card-value" id="in-progress-tasks"><?php echo $in_progress_tasks[0]['count']; ?></div>
           <div class="card-status inprogress">Active Work</div>
           <div class="card-icon card-icon-blue">▶️</div>
         </div>
         <div class="dashboard-card">
           <div class="card-title">Completed</div>
-          <div class="card-value"><?php echo $completed_tasks[0]['count']; ?></div>
+          <div class="card-value" id="completed-tasks"><?php echo $completed_tasks[0]['count']; ?></div>
           <div class="card-status completed">Finished</div>
           <div class="card-icon card-icon-green">✔️</div>
         </div>
@@ -145,6 +145,25 @@ $recent_tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY creat
       window.location.href = 'index.html';
     }
   });
+  
+  // Dashboard refresh functionality
+  function refreshDashboard() {
+    fetch('get-dashboard-data.php')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('total-tasks').textContent = data.total_tasks;
+      document.getElementById('pending-tasks').textContent = data.pending_tasks;
+      document.getElementById('in-progress-tasks').textContent = data.in_progress_tasks;
+      document.getElementById('completed-tasks').textContent = data.completed_tasks;
+    })
+    .catch(error => {
+      console.error('Error refreshing dashboard:', error);
+    });
+  }
+  
+  // Refresh dashboard every 30 seconds
+  setInterval(refreshDashboard, 30000);
+  
 </script>
 </body>
 

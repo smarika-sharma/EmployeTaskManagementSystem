@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $db->select("SELECT * FROM admin WHERE email = ?", [$email]);
         if ($result && password_verify($password, $result[0]['password'])) {
             // Login successful, redirect to dashboard
-            header("Location: admin-dashboard.html");
+            header("Location: admin-dashboard.php");
             exit();
         } else {
             $error = "Incorrect credentials.";
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Password
           <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </label>
-        <button type="submit" class="btn btn-primary" formaction="admin-dashboard.html">Login as Admin</button>
+        <button type="submit" class="btn btn-primary" formaction="admin-dashboard.php">Login as Admin</button>
       </form>
       <div class="login-back">
         <a href="./index.html">← Back to Home</a>
