@@ -197,7 +197,10 @@ $tasks = $db->select("SELECT * FROM task WHERE user_id = ? ORDER BY created_date
                       <br><span class="overdue">Overdue</span>
                     <?php endif; ?>
                   </td>
-                  <td><span class="pill <?php echo strtolower(str_replace(' ', '-', $task['status'])); ?>"><?php echo htmlspecialchars($task['status']); ?></span></td>
+                  <td><span class="pill <?php 
+                    $status_class = strtolower(str_replace(' ', '', $task['status']));
+                    echo $status_class;
+                  ?>"><?php echo htmlspecialchars($task['status']); ?></span></td>
                   <td><span class="pill <?php echo strtolower($task['priority']); ?>"><?php echo htmlspecialchars($task['priority']); ?></span></td>
                   <td>
                       <span class="action-icon" onclick="editTask(<?php echo $task['id']; ?>)">✏️</span>

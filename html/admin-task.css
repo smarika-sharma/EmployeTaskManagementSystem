@@ -124,11 +124,11 @@ body {
   transition: background 0.2s, color 0.2s;
 }
 .btn-primary {
-  background: linear-gradient(90deg, #2563eb 80%, #7c3aed 100%);
-  color: #fff;
+  background: #2154c9;
+  color: #fff !important;
 }
 .btn-primary:hover {
-  background: #1742a0;
+  background: #5b85df;
 }
 .profile-circle {
   background: #a78bfa;
@@ -152,6 +152,177 @@ body {
   margin-top: 0;
   overflow-x: auto;
 }
+
+/* CSS Reset for Edit Forms */
+section.task-table-section .edit-form,
+.main-content .edit-form,
+.edit-form {
+  all: unset;
+  display: none !important;
+  background: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  box-shadow: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-family: 'Inter', sans-serif !important;
+  color: #222 !important;
+  box-sizing: border-box !important;
+}
+
+section.task-table-section .edit-form.active,
+.main-content .edit-form.active,
+.edit-form.active {
+  display: block !important;
+}
+
+/* Edit Forms */
+.edit-form h3 {
+  margin: 0 0 20px 0 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #495057 !important;
+}
+
+.edit-form input, 
+.edit-form textarea, 
+.edit-form select {
+  width: 100% !important;
+  padding: 8px 12px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+  margin-bottom: 10px !important;
+  font-size: 14px !important;
+  background: #fff !important;
+  color: #495057 !important;
+  box-sizing: border-box !important;
+}
+
+.edit-form input:focus, 
+.edit-form textarea:focus, 
+.edit-form select:focus {
+  outline: none !important;
+  border-color: #80bdff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.edit-form textarea {
+  height: 80px !important;
+  resize: vertical !important;
+}
+
+.edit-form .form-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr !important;
+  gap: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.edit-form .form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 0 !important;
+}
+
+.edit-form .form-group label {
+  font-weight: 600 !important;
+  margin-bottom: 5px !important;
+  color: #495057 !important;
+  font-size: 14px !important;
+}
+
+.edit-buttons {
+  display: flex !important;
+  gap: 10px !important;
+  justify-content: flex-end !important;
+  margin-top: 20px !important;
+}
+
+.btn-save, 
+.btn-cancel {
+  padding: 8px 16px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  transition: background-color 0.2s !important;
+}
+
+.btn-save {
+  background: #007bff !important;
+  color: white !important;
+}
+
+.btn-save:hover {
+  background: #0056b3 !important;
+}
+
+.btn-cancel {
+  background: #6c757d !important;
+  color: white !important;
+}
+
+.btn-cancel:hover {
+  background: #545b62 !important;
+}
+
+/* Popup Messages */
+.message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideIn 0.3s ease-out;
+  max-width: 300px;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Task Date */
+.task-date {
+  color: #9ca3af;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .task-table {
   width: 100%;
   border-collapse: separate;
@@ -197,7 +368,7 @@ body {
   color: #fff;
   margin-right: 4px;
 }
-.pill.inprogress { background: #2563eb; }
+.pill.inprogress { background: #45a3bb;color: #fff; }
 .pill.pending { background: #f59e42; color: #fff; }
 .pill.completed { background: #22c55e; }
 .pill.high { background: #ef4444; }

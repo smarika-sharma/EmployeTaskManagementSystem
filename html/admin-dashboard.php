@@ -51,7 +51,7 @@ $recent_tasks = $db->select("
       <nav class="sidebar-nav">
         <ul>
           <li class="active"><a href="#"><span class="nav-icon">▣</span> Dashboard</a></li>
-          <li><a href="./admin-task.html"><span class="nav-icon">●</span> Tasks</a></li>
+          <li><a href="./admin-task.php"><span class="nav-icon">●</span> Tasks</a></li>
         </ul>
       </nav>
       <div class="sidebar-logout" id="logoutBtn">
